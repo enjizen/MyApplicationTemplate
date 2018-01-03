@@ -17,6 +17,9 @@ public class LogUtil {
         return instance;
     }
 
+
+    private LogUtil(){}
+
    public void i(String tag, String msg){
         if (show)
             Log.i(tag,msg);

@@ -15,31 +15,28 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cockatoo.enjizen.myapplicationtemplate.R;
-import cockatoo.enjizen.myapplicationtemplate.manager.CallApiServiceManager;
-import cockatoo.enjizen.myapplicationtemplate.model.ProvinceItemModel;
-import cockatoo.enjizen.myapplicationtemplate.model.ProvinceModel;
-import cockatoo.enjizen.myapplicationtemplate.util.LogUtil;
+import cockatoo.enjizen.myapplicationtemplate.constanst.Constant;
+import cockatoo.enjizen.myapplicationtemplate.manager.http.CallApiServiceManager;
+import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends BaseFragment {
 
-    private static MainFragment fragment;
+
+    // Element Member Variable
+
     @BindView(R.id.spinner_province)
     AppCompatSpinner spinnerProvince;
+
     @BindView(R.id.text_view_test)
     TextView textViewTest;
 
 
-    private String provinceId = "";
-    private String provinceName = "";
 
 
     public MainFragment() {
@@ -47,7 +44,7 @@ public class MainFragment extends BaseFragment {
     }
 
     public static MainFragment newInstance(){
-        fragment= new MainFragment();
+        MainFragment fragment= new MainFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -61,26 +58,37 @@ public class MainFragment extends BaseFragment {
             onRestoreInstanceState(savedInstanceState);  // Restore Instance
         }
 
-       LogUtil.getInstance().i("provinceName",provinceName);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-        ButterKnife.bind(this,view);
-        return view;
+        return inflater.inflate(R.layout.fragment_main, container, false);
+
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ButterKnife.bind(this,view);
+
         textViewTest.setText(R.string.label_test_butter_knife);
         if(savedInstanceState == null) {
             new FeedProvince().execute();
         }
+        else{
+            ProvinceModel provinceModel =  getArguments().getParcelable(Constant.PROVINCE_LIST_ARGUMENT);
+
+            if(provinceModel != null){
+                setDataProvinceSpinner(provinceModel);
+            }
+
+        }
     }
+
+
+
 
 
 
@@ -97,34 +105,40 @@ public class MainFragment extends BaseFragment {
 
         @Override
         protected ProvinceModel doInBackground(String... strings) {
-            ProvinceModel provinceModel =  CallApiServiceManager.getInstance().getProvince();
-            return provinceModel;
+            return CallApiServiceManager.getInstance().getProvince();
         }
 
         @Override
         protected void onPostExecute(ProvinceModel provinceModel) {
             super.onPostExecute(provinceModel);
             hideLoadingDialog();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("provinceList",provinceModel);
-            fragment.setArguments(bundle);
-            setDataProvinceSpinner((List<ProvinceItemModel>) getArguments().getParcelable("provinceList"));
+
+            if(provinceModel != null) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constant.PROVINCE_LIST_ARGUMENT, provinceModel);
+                setArguments(bundle);
+                setDataProvinceSpinner((ProvinceModel) getArguments().getParcelable(Constant.PROVINCE_LIST_ARGUMENT));
+            }
+            else{
+                //showAlertDialog(getString(R.string.call_api_error_message),R.string.ok);
+                showAlertConfirmDialog(getString(R.string.call_api_error_message),R.string.ok,R.string.cancel);
+            }
         }
     }
 
 
 
-    private void setDataProvinceSpinner(final List<ProvinceItemModel> provinceItemModelList) {
+    private void setDataProvinceSpinner(final ProvinceModel provinceModel) {
         ArrayAdapter dataAdapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, provinceItemModelList);
+                android.R.layout.simple_spinner_dropdown_item, provinceModel.getProvinceItemModelList());
 
         spinnerProvince.setAdapter(dataAdapter);
 
         spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                 provinceId = provinceItemModelList.get(position).getId();
-                 provinceName = provinceItemModelList.get(position).getLabel();
+               /*  provinceId = provinceModel.getProvinceItemModelList().get(position).getId();
+                 provinceName = provinceModel.getProvinceItemModelList().get(position).getLabel();*/
             }
 
             @Override
@@ -135,18 +149,36 @@ public class MainFragment extends BaseFragment {
 
     }
 
+   /* private void showAlertDialog(){
+        AlertDialogFragment alertDialogFragment = new AlertDialogFragment.Builder()
+                .setMessage(getString(R.string.hello_world))
+                .setPositive(R.string.ok)
+                .build();
+
+        alertDialogFragment.show(getChildFragmentManager(),"dialog");
+    }*/
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        outState.putString("provinceId", provinceId);
-        outState.putString("provinceName", provinceName);
-
     }
 
     private void onRestoreInstanceState(Bundle savedInstanceState){
-        provinceId = savedInstanceState.getString("provinceId");
-        provinceName = savedInstanceState.getString("provinceName");
+
+    }
+
+    @Override
+    public void onPositiveButtonClick() {
+        super.onPositiveButtonClick();
+
+        Toast.makeText(getContext(),"Positive",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNegativeButtonClick() {
+        super.onNegativeButtonClick();
+
+        Toast.makeText(getContext(),"Negative",Toast.LENGTH_LONG).show();
     }
 }

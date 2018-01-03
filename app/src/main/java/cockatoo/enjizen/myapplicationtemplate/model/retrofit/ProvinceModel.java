@@ -1,4 +1,4 @@
-package cockatoo.enjizen.myapplicationtemplate.model;
+package cockatoo.enjizen.myapplicationtemplate.model.retrofit;
 
 import android.os.Parcel;
 import android.os.Parcelable;

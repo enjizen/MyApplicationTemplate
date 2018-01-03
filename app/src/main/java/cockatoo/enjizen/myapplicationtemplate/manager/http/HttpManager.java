@@ -1,9 +1,8 @@
-package cockatoo.enjizen.myapplicationtemplate.manager;
+package cockatoo.enjizen.myapplicationtemplate.manager.http;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import cockatoo.enjizen.myapplicationtemplate.manager.http.ApiService;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

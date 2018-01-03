@@ -1,11 +1,12 @@
-package cockatoo.enjizen.myapplicationtemplate.manager;
+package cockatoo.enjizen.myapplicationtemplate.manager.http;
 
 import android.content.Context;
 
 import java.io.IOException;
 
 import cockatoo.enjizen.myapplicationtemplate.R;
-import cockatoo.enjizen.myapplicationtemplate.model.ProvinceModel;
+import cockatoo.enjizen.myapplicationtemplate.manager.Contextor;
+import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import cockatoo.enjizen.myapplicationtemplate.util.LogUtil;
 import retrofit2.Call;
 
@@ -33,8 +34,6 @@ public class CallApiServiceManager {
 
 
     public ProvinceModel getProvince() {
-
-
         Call<ProvinceModel> call = HttpManager.getInstance().getService().getProvince(mContext.getString(R.string.local_upper));
         LogUtil.getInstance().i(TAG,"Url Result = " + call.request().url().toString());
         try {
