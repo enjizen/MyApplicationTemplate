@@ -19,14 +19,15 @@ public class ToastUtil {
         return instance;
     }
 
-    private Context mContext;
-
     private ToastUtil() {
-        mContext = Contextor.getInstance().getContext();
     }
 
-    public void toast(Context context,String msg){
+    public void toast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
+    }
+
+    public void toastLong(Context context, String msg){
+        Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
     }
 
 }

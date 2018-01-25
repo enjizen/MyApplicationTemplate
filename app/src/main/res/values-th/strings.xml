@@ -6,4 +6,5 @@
     <string name="ok">ok</string>
     <string name="hello_world">Hello to the World of Android Development</string>
     <string name="call_api_error_message">ไม่สามารถใช้งานระบบได้ในขณะนี้</string>
+    <string name="session_time_out">Session Time out</string>
 </resources>

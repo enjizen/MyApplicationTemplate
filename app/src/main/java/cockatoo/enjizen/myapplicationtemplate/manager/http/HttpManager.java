@@ -11,6 +11,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class HttpManager {
+
+    private static final String baseUrl = "http://203.154.255.55:8080/tipinsuranceAPI-3.0/";
+    private static final String dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ";
+
     private static HttpManager instance;
     private ApiService service;
 
@@ -23,11 +27,11 @@ public class HttpManager {
 
     private HttpManager(){
         Gson gson = new GsonBuilder()
-                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                        .setDateFormat(dateFormat)
                         .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("http://203.154.255.55:8080/tipinsuranceAPI-3.0/")
+                                .baseUrl(baseUrl)
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
 

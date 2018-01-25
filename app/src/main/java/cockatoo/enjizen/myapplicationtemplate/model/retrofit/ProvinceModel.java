@@ -8,14 +8,20 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import cockatoo.enjizen.myapplicationtemplate.model.MessageResponse;
+
 /**
  * Created by Inspiron 3458 on 10/26/2016.
  */
 
-public class ProvinceModel implements Parcelable {
+public class ProvinceModel extends MessageResponse implements Parcelable {
     @SerializedName("provinces")
     @Expose
     private List<ProvinceItemModel> provinceItemModelList;
+
+    public ProvinceModel(){
+
+    }
 
     protected ProvinceModel(Parcel in) {
         provinceItemModelList = in.createTypedArrayList(ProvinceItemModel.CREATOR);
