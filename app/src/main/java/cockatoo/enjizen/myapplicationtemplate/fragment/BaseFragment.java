@@ -10,6 +10,7 @@ import cc.cloudist.acplibrary.ACProgressFlower;
 import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.dialog.AlertDialogFragment;
 import cockatoo.enjizen.myapplicationtemplate.dialog.ConfirmDialogFragment;
+import cockatoo.enjizen.myapplicationtemplate.manager.http.CallApiServiceManagerListener;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.AmphurModel;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import cockatoo.enjizen.myapplicationtemplate.manager.http.CallApiServiceManager;
@@ -19,7 +20,7 @@ import cockatoo.enjizen.myapplicationtemplate.util.ToastUtil;
  * Created by Wanchalerm Yuphasuk on 27/12/2017 AD.
  */
 
-public class BaseFragment extends Fragment implements CallApiServiceManager.CallApiServicePresenterListener
+public class BaseFragment extends Fragment implements CallApiServiceManagerListener
                                                         ,AlertDialogFragment.OnDialogListener
                                                         ,ConfirmDialogFragment.OnDialogListener{
 

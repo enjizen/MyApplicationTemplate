@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 
 import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.manager.Contextor;
-import cockatoo.enjizen.myapplicationtemplate.manager.http.ApiService;
-import cockatoo.enjizen.myapplicationtemplate.manager.http.HttpManager;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.AmphurModel;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import retrofit2.Call;
@@ -15,22 +13,31 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by streami.t.mobiledeveloper1 on 17/1/2018 AD.
+ * Created by Wanchalerm Yuphasuk on 17/1/2018 AD.
  */
 
 public class CallApiServiceManager {
 
+    /**
+     * Context Activity
+     */
     private final Context context;
-    private final CallApiServicePresenterListener mListener;
+
+    /**
+     * Listener return result
+     */
+    private final CallApiServiceManagerListener mListener;
+
+    /**
+     * Call Api Service
+     */
     private final ApiService apiService;
 
 
-    public interface CallApiServicePresenterListener{
-        void provinceResponse(ProvinceModel provinceModel);
-        void amphurResponse(AmphurModel amphurModel);
-    }
-
-    public CallApiServiceManager(CallApiServicePresenterListener listener){
+    /**
+     * @param listener
+     */
+    public CallApiServiceManager(CallApiServiceManagerListener listener){
         this.context = Contextor.getInstance().getContext();
         this.mListener = listener;
         this.apiService = HttpManager.getInstance().getService();
@@ -64,14 +71,14 @@ public class CallApiServiceManager {
     public void getAmphur(int provinceId){
         apiService.getAmphur(context.getResources().getString(R.string.local_upper),provinceId).enqueue(new Callback<AmphurModel>() {
             @Override
-            public void onResponse(Call<AmphurModel> call, Response<AmphurModel> response) {
+            public void onResponse(@NonNull Call<AmphurModel> call, Response<AmphurModel> response) {
                 if(response.isSuccessful()){
                     mListener.amphurResponse(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<AmphurModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<AmphurModel> call, Throwable t) {
 
             }
         });

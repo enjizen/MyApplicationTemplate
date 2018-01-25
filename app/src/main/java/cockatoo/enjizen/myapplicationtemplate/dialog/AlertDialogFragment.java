@@ -135,7 +135,6 @@ public class AlertDialogFragment extends DialogFragment {
 
     public interface OnDialogListener {
         void onPositiveButtonClick();
-
     }
 
 

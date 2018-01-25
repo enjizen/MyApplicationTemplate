@@ -139,17 +139,5 @@ public class MainFragment extends BaseFragment{
 
     }
 
-    @Override
-    public void onPositiveButtonClick() {
-        super.onPositiveButtonClick();
 
-        toastLong("Positive");
-    }
-
-    @Override
-    public void onNegativeButtonClick() {
-        super.onNegativeButtonClick();
-
-        toastLong("Negative");
-    }
 }
