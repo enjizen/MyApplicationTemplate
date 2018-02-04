@@ -23,4 +23,5 @@ public class MessageResponse {
     public void setMessageDetail(String messageDetail) {
         this.messageDetail = messageDetail;
     }
+
 }

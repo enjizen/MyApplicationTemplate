@@ -15,6 +15,8 @@ import cockatoo.enjizen.myapplicationtemplate.model.retrofit.AmphurModel;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import cockatoo.enjizen.myapplicationtemplate.manager.http.CallApiServiceManager;
 import cockatoo.enjizen.myapplicationtemplate.util.ToastUtil;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 /**
  * Created by Wanchalerm Yuphasuk on 27/12/2017 AD.
@@ -31,7 +33,7 @@ public class BaseFragment extends Fragment implements CallApiServiceManagerListe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiService = new CallApiServiceManager(this);
+        apiService = new CallApiServiceManager(this,getChildFragmentManager());
     }
 
     /**
@@ -127,18 +129,14 @@ public class BaseFragment extends Fragment implements CallApiServiceManagerListe
 
 
     /**
-     *
+     *src
      * Api Service Response
      *
      */
 
     @Override
     public void provinceResponse(ProvinceModel provinceModel) {
-        hideLoadingDialog();
 
-        if(provinceModel.getMessageCode() != null){
-            showAlertDialog(provinceModel.getMessageDetail(), R.string.ok);
-        }
 
     }
 
@@ -150,4 +148,11 @@ public class BaseFragment extends Fragment implements CallApiServiceManagerListe
             showAlertDialog(amphurModel.getMessageDetail(), R.string.ok);
         }
     }
+
+    @Override
+    public void onHideLoadingDialog() {
+        hideLoadingDialog();
+    }
+
+
 }

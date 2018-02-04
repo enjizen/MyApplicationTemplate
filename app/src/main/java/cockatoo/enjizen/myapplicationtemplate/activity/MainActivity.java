@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements ScanQrCodeFragmen
     private void firstFragment() {
         onRequestPermissionsResult();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.content_container, MainFragment.newInstance())
+                .add(R.id.content_container, MainFragment.newInstance(),"MainFragment")
                 .commit();
     }
 

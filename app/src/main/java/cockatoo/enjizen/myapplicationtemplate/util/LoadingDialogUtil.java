@@ -1,5 +1,6 @@
 package cockatoo.enjizen.myapplicationtemplate.util;
 
+import android.app.Activity;
 import android.content.Context;
 
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -32,7 +33,12 @@ public class LoadingDialogUtil {
             // dialog.setCanceledOnTouchOutside(false);
 
         }
-        dialog.show();
+
+        if(!((Activity) context).isFinishing())
+        {
+            dialog.show();
+        }
+
     }
 
     public void hideLoadingDialog(){
