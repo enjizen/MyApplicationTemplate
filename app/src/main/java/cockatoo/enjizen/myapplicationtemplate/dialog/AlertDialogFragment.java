@@ -30,6 +30,8 @@ public class AlertDialogFragment extends DialogFragment {
 
 
 
+    public static final  String KEY_MESSAGE = "key message";
+    public static final  String KEY_POSITIVE = "key positive";
 
     private String message;
     private int positive;
@@ -45,8 +47,8 @@ public class AlertDialogFragment extends DialogFragment {
                                                     , @StringRes int positive){
         AlertDialogFragment fragment = new AlertDialogFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Constant.KEY_MESSAGE, message);
-        bundle.putInt(Constant.KEY_POSITIVE, positive);
+        bundle.putString(KEY_MESSAGE, message);
+        bundle.putInt(KEY_POSITIVE, positive);
         fragment.setArguments(bundle);
         return fragment;
     }

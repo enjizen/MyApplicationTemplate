@@ -142,11 +142,6 @@ public class BaseFragment extends Fragment implements CallApiServiceManagerListe
 
     @Override
     public void amphurResponse(AmphurModel amphurModel) {
-        hideLoadingDialog();
-
-        if(amphurModel.getMessageCode() != null){
-            showAlertDialog(amphurModel.getMessageDetail(), R.string.ok);
-        }
     }
 
     @Override

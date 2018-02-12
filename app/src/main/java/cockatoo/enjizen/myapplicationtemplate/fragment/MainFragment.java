@@ -76,6 +76,7 @@ public class MainFragment extends BaseFragment{
         textViewTest.setText(R.string.label_test_butter_knife);
         if(savedInstanceState == null) {
             getApiServicePresenter().getProvince();
+
         }
         else{
             ProvinceModel provinceModel =  getArguments().getParcelable(Constant.PROVINCE_LIST_ARGUMENT);
@@ -97,6 +98,8 @@ public class MainFragment extends BaseFragment{
             bundle.putParcelable(Constant.PROVINCE_LIST_ARGUMENT, provinceModel);
             setArguments(bundle);
             setDataProvinceSpinner((ProvinceModel) getArguments().getParcelable(Constant.PROVINCE_LIST_ARGUMENT));
+
+            getApiServicePresenter().getAmphur(Integer.parseInt(provinceModel.getProvinceItemModelList().get(0).getId()));
         }
 
 
@@ -138,6 +141,10 @@ public class MainFragment extends BaseFragment{
     private void onRestoreInstanceState(Bundle savedInstanceState){
 
     }
+
+
+
+
 
 
 }

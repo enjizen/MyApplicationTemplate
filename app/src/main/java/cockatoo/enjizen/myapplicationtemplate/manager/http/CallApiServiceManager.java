@@ -3,12 +3,16 @@ package cockatoo.enjizen.myapplicationtemplate.manager.http;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
+
+import com.google.firebase.crash.FirebaseCrash;
 
 import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.manager.Contextor;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.AmphurModel;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import cockatoo.enjizen.myapplicationtemplate.util.DialogUtil;
+import cockatoo.enjizen.myapplicationtemplate.util.InvalidCode;
 import cockatoo.enjizen.myapplicationtemplate.util.LoadingDialogUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,14 +62,14 @@ public class CallApiServiceManager {
                     hideLoadingDialog();
                     mListener.provinceResponse(response.body());
                 } else {
-                    onError();
+                    onError("getProvince", InvalidCode.getInstance().invalidHttpStatusCode(response.code()));
                 }
 
             }
 
             @Override
             public void onFailure(@NonNull Call<ProvinceModel> call, @NonNull Throwable t) {
-                onError();
+                onError("getProvince",t.getMessage());
             }
         });
     }
@@ -76,7 +80,11 @@ public class CallApiServiceManager {
             @Override
             public void onResponse(@NonNull Call<AmphurModel> call, Response<AmphurModel> response) {
                 if (response.isSuccessful()) {
+                    hideLoadingDialog();
                     mListener.amphurResponse(response.body());
+                }
+                else{
+                    onError("getAmphur", InvalidCode.getInstance().invalidHttpStatusCode(response.code()));
                 }
             }
 
@@ -88,11 +96,10 @@ public class CallApiServiceManager {
     }
 
 
-    private void validateCode(Object object) {
+    private void onError(String methodName,String msg){
 
-    }
+        FirebaseCrash.logcat(Log.ERROR, methodName, msg);
 
-    private void onError(){
          hideLoadingDialog();
          showAlertDialog();
     }

@@ -14,7 +14,7 @@ import cockatoo.enjizen.myapplicationtemplate.model.MessageResponse;
  * Created by Inspiron 3458 on 10/26/2016.
  */
 
-public class AmphurModel extends MessageResponse implements Parcelable {
+public class AmphurModel implements Parcelable {
     @SerializedName("amphur")
     @Expose
     public List<AmphurItem> amphurItemList;

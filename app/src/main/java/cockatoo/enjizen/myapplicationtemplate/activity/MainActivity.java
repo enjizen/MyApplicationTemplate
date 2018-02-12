@@ -4,6 +4,8 @@ import android.Manifest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.fragment.MainFragment;
 import cockatoo.enjizen.myapplicationtemplate.fragment.ScanQrCodeFragment;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements ScanQrCodeFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FirebaseCrash.log("Activity created");
 
         if(savedInstanceState == null){
             firstFragment();
