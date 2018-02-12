@@ -17,7 +17,6 @@ import android.view.View;
 import butterknife.BindView;
 import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.fragment.ScanQrCodeFragment;
-import cockatoo.enjizen.myapplicationtemplate.fragment.YoutubeFragment;
 
 /**
  * Created by Wanchalerm on 12/2/2018 AD.
@@ -36,7 +35,6 @@ public class BaseActivity extends AppCompatActivity {
 
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
-    private Class<YoutubeFragment> fragmentClass;
 
 
     @Override
