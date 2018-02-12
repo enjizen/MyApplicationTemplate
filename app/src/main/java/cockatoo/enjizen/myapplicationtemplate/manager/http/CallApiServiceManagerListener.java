@@ -11,8 +11,8 @@ import retrofit2.Retrofit;
 
 public interface CallApiServiceManagerListener {
 
-    void provinceResponse(ProvinceModel provinceModel);
-    void amphurResponse(AmphurModel amphurModel);
+    void callbackProvinceModelResponse(ProvinceModel provinceModel);
+    void callbackAmphurModelResponse(AmphurModel amphurModel);
 
     void onHideLoadingDialog();
 }

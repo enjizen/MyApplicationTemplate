@@ -11,14 +11,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.constanst.Constant;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
-import cockatoo.enjizen.myapplicationtemplate.util.ToastUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +73,7 @@ public class MainFragment extends BaseFragment{
 
         textViewTest.setText(R.string.label_test_butter_knife);
         if(savedInstanceState == null) {
-            getApiServicePresenter().getProvince();
+            getApiService().getProvince();
 
         }
         else{
@@ -89,8 +87,8 @@ public class MainFragment extends BaseFragment{
     }
 
     @Override
-    public void provinceResponse(ProvinceModel provinceModel) {
-        super.provinceResponse(provinceModel);
+    public void callbackProvinceModelResponse(ProvinceModel provinceModel) {
+        super.callbackProvinceModelResponse(provinceModel);
 
 
         if(provinceModel != null && provinceModel.getProvinceItemModelList() != null) {
@@ -99,7 +97,7 @@ public class MainFragment extends BaseFragment{
             setArguments(bundle);
             setDataProvinceSpinner((ProvinceModel) getArguments().getParcelable(Constant.PROVINCE_LIST_ARGUMENT));
 
-            getApiServicePresenter().getAmphur(Integer.parseInt(provinceModel.getProvinceItemModelList().get(0).getId()));
+            getApiService().getAmphur(Integer.parseInt(provinceModel.getProvinceItemModelList().get(0).getId()));
         }
 
 
@@ -141,10 +139,5 @@ public class MainFragment extends BaseFragment{
     private void onRestoreInstanceState(Bundle savedInstanceState){
 
     }
-
-
-
-
-
 
 }

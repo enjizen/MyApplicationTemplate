@@ -55,56 +55,47 @@ public class NullSafeUtils {
 	}
 
 	public boolean isEmpty(Integer integer){
-		boolean b = isNull(integer);
-		return (b);
+		return (isNull(integer));
 
 	}
 
 	public boolean isEmpty(Byte byt){
-		boolean b = isNull(byt);
-		return (b);
+		return (isNull(byt));
 
 	}
 
 	public boolean isEmpty(Short s){
-		boolean b = isNull(s);
-		return (b);
+		return (isNull(s));
 
 	}
 
 	public boolean isEmpty(Long l){
-		boolean b = isNull(l);
-		return (b);
+		return (isNull(l));
 
 	}
 
 	public boolean isEmpty(Character c){
-		boolean b = isNull(c);
-		return (b);
+		return (isNull(c));
 
 	}
 
 	public boolean isEmpty(Float f){
-		boolean b = isNull(f);
-		return (b);
+		return (isNull(f));
 
 	}
 
 	public boolean isEmpty(Double d){
-		boolean b = isNull(d);
-		return (b);
+		return (isNull(d));
 
 	}
 
 	public boolean isEmpty(Number num){
-		boolean b = isNull(num);
-		return (b);
+		return (isNull(num));
 
 	}
 
 	public boolean isEmpty(BigDecimal d){
-		boolean b = isNull(d);
-		return (b);
+		return (isNull(d));
 
 	}
 
@@ -151,56 +142,47 @@ public class NullSafeUtils {
 	}
 
 	public boolean isNotEmpty(Integer integer){
-		boolean b = isNotNull(integer);
-		return (b);
+		return (isNotNull(integer));
 
 	}
 
 	public boolean isNotEmpty(Byte byt){
-		boolean b = isNotNull(byt);
-		return (b);
+		return (isNotNull(byt));
 
 	}
 
 	public boolean isNotEmpty(Short s){
-		boolean b = isNotNull(s);
-		return (b);
+		return (isNotNull(s));
 
 	}
 
 	public boolean isNotEmpty(Long l){
-		boolean b = isNotNull(l);
-		return (b);
+		return (isNotNull(l));
 
 	}
 
 	public boolean isNotEmpty(Character c){
-		boolean b = isNotNull(c);
-		return (b);
+		return (isNotNull(c));
 
 	}
 
 	public boolean isNotEmpty(Float f){
-		boolean b = isNotNull(f);
-		return (b);
+		return (isNotNull(f));
 
 	}
 
 	public boolean isNotEmpty(Double d){
-		boolean b = isNotNull(d);
-		return (b);
+		return (isNotNull(d));
 
 	}
 
 	public boolean isNotEmpty(Number num){
-		boolean b = isNotNull(num);
-		return (b);
+		return (isNotNull(num));
 
 	}
 
 	public boolean isNotEmpty(BigDecimal d){
-		boolean b = isNotNull(d);
-		return (b);
+		return (isNotNull(d));
 
 	}
 

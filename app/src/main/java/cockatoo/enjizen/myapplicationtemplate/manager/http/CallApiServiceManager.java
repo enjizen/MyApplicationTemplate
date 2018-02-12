@@ -3,9 +3,6 @@ package cockatoo.enjizen.myapplicationtemplate.manager.http;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
-
-import com.google.firebase.crash.FirebaseCrash;
 
 import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.manager.Contextor;
@@ -13,7 +10,6 @@ import cockatoo.enjizen.myapplicationtemplate.model.retrofit.AmphurModel;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import cockatoo.enjizen.myapplicationtemplate.util.DialogUtil;
 import cockatoo.enjizen.myapplicationtemplate.util.InvalidCode;
-import cockatoo.enjizen.myapplicationtemplate.util.LoadingDialogUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,11 +35,16 @@ public class CallApiServiceManager {
      */
     private final ApiService apiService;
 
+    /**
+     * Fragment manager
+     */
     private final FragmentManager fragmentManager;
 
 
     /**
+     * Construct
      * @param listener
+     * @param fragmentManager
      */
     public CallApiServiceManager(CallApiServiceManagerListener listener, FragmentManager fragmentManager) {
         this.context = Contextor.getInstance().getContext();
@@ -52,6 +53,9 @@ public class CallApiServiceManager {
         this.fragmentManager = fragmentManager;
     }
 
+    /**
+     * Get Province Api Service
+     */
 
     public void getProvince() {
         Call<ProvinceModel> call = apiService.getProvince(context.getResources().getString(R.string.local_upper));
@@ -60,19 +64,25 @@ public class CallApiServiceManager {
             public void onResponse(@NonNull Call<ProvinceModel> call, @NonNull Response<ProvinceModel> response) {
                 if (response.isSuccessful()) {
                     hideLoadingDialog();
-                    mListener.provinceResponse(response.body());
+                    mListener.callbackProvinceModelResponse(response.body());
                 } else {
-                    onError("getProvince", InvalidCode.getInstance().invalidHttpStatusCode(response.code()));
+                    onErrorService(response);
                 }
+
+
+
 
             }
 
             @Override
             public void onFailure(@NonNull Call<ProvinceModel> call, @NonNull Throwable t) {
-                onError("getProvince",t.getMessage());
+                onErrorFailure();
             }
         });
+
     }
+
+
 
 
     public void getAmphur(int provinceId) {
@@ -81,10 +91,10 @@ public class CallApiServiceManager {
             public void onResponse(@NonNull Call<AmphurModel> call, Response<AmphurModel> response) {
                 if (response.isSuccessful()) {
                     hideLoadingDialog();
-                    mListener.amphurResponse(response.body());
+                    mListener.callbackAmphurModelResponse(response.body());
                 }
                 else{
-                    onError("getAmphur", InvalidCode.getInstance().invalidHttpStatusCode(response.code()));
+                    onErrorService(response);
                 }
             }
 
@@ -96,21 +106,30 @@ public class CallApiServiceManager {
     }
 
 
-    private void onError(String methodName,String msg){
+    private void onErrorService(Response response) {
 
-        FirebaseCrash.logcat(Log.ERROR, methodName, msg);
+        hideLoadingDialog();
+        showAlertDialog(InvalidCode.getInstance().invalidHttpStatusCode(response.code()));
+    }
+
+
+    private void onErrorFailure(){
+
+       // FirebaseCrash.logcat(Log.ERROR, methodName, msg);
 
          hideLoadingDialog();
-         showAlertDialog();
+         showAlertDialog("Please Check Internet Connection");
     }
+
+
 
     private void hideLoadingDialog(){
         mListener.onHideLoadingDialog();
     }
 
 
-    private void showAlertDialog() {
-        DialogUtil.getInstance().showAlertDialog(fragmentManager, "aaaaaaa", R.string.ok);
+    private void showAlertDialog(String message) {
+        DialogUtil.getInstance().showAlertDialog(fragmentManager, message, R.string.ok);
     }
 
 

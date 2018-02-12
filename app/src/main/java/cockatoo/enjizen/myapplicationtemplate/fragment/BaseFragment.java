@@ -7,16 +7,14 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 
 import cc.cloudist.acplibrary.ACProgressFlower;
-import cockatoo.enjizen.myapplicationtemplate.R;
 import cockatoo.enjizen.myapplicationtemplate.dialog.AlertDialogFragment;
 import cockatoo.enjizen.myapplicationtemplate.dialog.ConfirmDialogFragment;
 import cockatoo.enjizen.myapplicationtemplate.manager.http.CallApiServiceManagerListener;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.AmphurModel;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import cockatoo.enjizen.myapplicationtemplate.manager.http.CallApiServiceManager;
+import cockatoo.enjizen.myapplicationtemplate.util.DialogUtil;
 import cockatoo.enjizen.myapplicationtemplate.util.ToastUtil;
-import okhttp3.ResponseBody;
-import retrofit2.Retrofit;
 
 /**
  * Created by Wanchalerm Yuphasuk on 27/12/2017 AD.
@@ -36,11 +34,12 @@ public class BaseFragment extends Fragment implements CallApiServiceManagerListe
         apiService = new CallApiServiceManager(this,getChildFragmentManager());
     }
 
+
     /**
      * Call Api Service Common
      * @return
      */
-    public CallApiServiceManager getApiServicePresenter() {
+    public CallApiServiceManager getApiService() {
         showLoadingDialog();
         return apiService;
     }
@@ -74,43 +73,43 @@ public class BaseFragment extends Fragment implements CallApiServiceManagerListe
 
     protected void showAlertDialog(String message
             ,@StringRes int positiveButton){
-        AlertDialogFragment alertDialogFragment = new AlertDialogFragment.Builder()
-                .setMessage(message)
-                .setPositive(positiveButton)
-                .build();
 
-        alertDialogFragment.setCancelable(false);
-        alertDialogFragment.show(getChildFragmentManager(),"alert dialog");
+        DialogUtil.getInstance().showAlertDialog(getFragmentManager(),message,positiveButton);
 
     }
 
     /**
      * @param message
      * @param positiveButton
-     * @param NegativeButton
+     * @param negativeButton
      */
     protected void showAlertConfirmDialog(String message
             ,@StringRes int positiveButton
-            ,@StringRes int NegativeButton
+            ,@StringRes int negativeButton
             ){
-        ConfirmDialogFragment confirmDialogFragment = new ConfirmDialogFragment.Builder()
-                .setMessage(message)
-                .setPositive(positiveButton)
-                .setNegative(NegativeButton)
-                .build();
-
-        confirmDialogFragment.setCancelable(false);
-        confirmDialogFragment.show(getChildFragmentManager(),"confirm dialog");
+        DialogUtil.getInstance().showAlertConfirmDialog(getFragmentManager(),message,positiveButton,negativeButton);
 
     }
+
+    /**
+     * Toast
+     * @param msg
+     */
 
     protected void toast(String msg){
         ToastUtil.getInstance().toast(getContext(),msg);
     }
 
+    /**
+     *  Long Toast
+     * @param msg
+     */
     protected void toastLong(String msg){
         ToastUtil.getInstance().toastLong(getContext(),msg);
     }
+
+
+
 
     /**
      * Override Confirm Dialog
@@ -135,13 +134,13 @@ public class BaseFragment extends Fragment implements CallApiServiceManagerListe
      */
 
     @Override
-    public void provinceResponse(ProvinceModel provinceModel) {
+    public void callbackProvinceModelResponse(ProvinceModel provinceModel) {
 
 
     }
 
     @Override
-    public void amphurResponse(AmphurModel amphurModel) {
+    public void callbackAmphurModelResponse(AmphurModel amphurModel) {
     }
 
     @Override

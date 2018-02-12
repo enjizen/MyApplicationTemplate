@@ -1,11 +1,10 @@
 package cockatoo.enjizen.myapplicationtemplate.util;
 
-import android.content.Context;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
 
 import cockatoo.enjizen.myapplicationtemplate.dialog.AlertDialogFragment;
-import cockatoo.enjizen.myapplicationtemplate.manager.Contextor;
+import cockatoo.enjizen.myapplicationtemplate.dialog.ConfirmDialogFragment;
 
 
 /**
@@ -21,10 +20,9 @@ public class DialogUtil {
         return instance;
     }
 
-    private Context mContext;
 
     private DialogUtil() {
-        mContext = Contextor.getInstance().getContext();
+
     }
 
 
@@ -37,6 +35,21 @@ public class DialogUtil {
 
         alertDialogFragment.setCancelable(false);
         alertDialogFragment.show(fragmentManager,"alert dialog");
+
+    }
+
+    public void showAlertConfirmDialog(FragmentManager fragmentManager,String message
+            ,@StringRes int positiveButton
+            ,@StringRes int NegativeButton
+    ){
+        ConfirmDialogFragment confirmDialogFragment = new ConfirmDialogFragment.Builder()
+                .setMessage(message)
+                .setPositive(positiveButton)
+                .setNegative(NegativeButton)
+                .build();
+
+        confirmDialogFragment.setCancelable(false);
+        confirmDialogFragment.show(fragmentManager,"confirm dialog");
 
     }
 
