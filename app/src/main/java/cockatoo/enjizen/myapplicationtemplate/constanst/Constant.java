@@ -1,7 +1,7 @@
 package cockatoo.enjizen.myapplicationtemplate.constanst;
 
 /**
- * Created by streami.t.mobiledeveloper1 on 28/12/2017 AD.
+ * Created by wanchalerm yuphasuk on 28/12/2017 AD.
  */
 
 public final class Constant {

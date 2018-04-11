@@ -2,6 +2,7 @@ package cockatoo.enjizen.myapplicationtemplate.manager.http;
 
 
 
+import cockatoo.enjizen.myapplicationtemplate.constanst.Config;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.AmphurModel;
 import cockatoo.enjizen.myapplicationtemplate.model.retrofit.ProvinceModel;
 import retrofit2.Call;
@@ -14,10 +15,10 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    @GET("masterdata/province")
+    @GET(Config.contextMasterData +"province")
     Call<ProvinceModel> getProvince(@Query("lang") String lang);
 
-    @GET("masterdata/amphur")
+    @GET(Config.contextMasterData +"amphur")
     Call<AmphurModel> getAmphur( @Query("lang") String lang, @Query("provinceId") int province_id);
 
 }
